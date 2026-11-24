@@ -18,15 +18,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from .views import health_check
+from django.urls import include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-
-    # path("api/v1/accounts/", include("accounts.urls")),
-    # path("api/v1/restaurant/", include("restaurant.urls")),
-    # path("api/v1/menu/", include("menu.urls")),
-    # path("api/v1/tables/", include("table.urls")),
-    # path("api/v1/orders/", include("orders.urls")),
-    # path("api/v1/kitchen/", include("kitchen.urls")),
+    path("api/v1/menu/", include("menu.urls")),
+    path("api/v1/table/", include("table.urls")),
     path("api/v1/health/", health_check),
 ]
