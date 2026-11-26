@@ -3,14 +3,8 @@ from .models import KitchenOrder, KitchenOrderItem
 
 
 class KitchenOrderItemSerializer(serializers.ModelSerializer):
-    menu_item_name = serializers.CharField(
-        source="order_item.menu_item.name",
-        read_only=True
-    )
-    quantity = serializers.IntegerField(
-        source="order_item.quantity",
-        read_only=True
-    )
+    menu_item_name = serializers.CharField(source="order_item.menu_item.name", read_only=True)
+    quantity = serializers.IntegerField(source="order_item.quantity", read_only=True)
     status = serializers.CharField(read_only=True)
 
     class Meta:
@@ -26,14 +20,8 @@ class KitchenOrderItemSerializer(serializers.ModelSerializer):
 
 
 class KitchenOrderSerializer(serializers.ModelSerializer):
-    order_number = serializers.UUIDField(
-        source="order.order_number",
-        read_only=True
-    )
-    table_number = serializers.CharField(
-        source="order.table.table_number",
-        read_only=True
-    )
+    order_number = serializers.UUIDField(source="order.order_number", read_only=True)
+    table_number = serializers.CharField(source="order.table.table_number",read_only=True)
     items = KitchenOrderItemSerializer(many=True, read_only=True)
 
     class Meta:

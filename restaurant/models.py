@@ -16,6 +16,11 @@ class Restaurant(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+
+    class Meta:
+        verbose_name = "Restaurant"
+        verbose_name_plural = "Restaurants"
+
     def __str__(self):
         return self.name
 
@@ -55,6 +60,10 @@ class RestaurantSettings(models.Model):
     qr_ordering_enabled = models.BooleanField(default=True)
     minimum_order_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Restaurant Setting"
+        verbose_name_plural = "Restaurant Settings"
 
     def __str__(self):
         return f"Settings - {self.restaurant.name}"

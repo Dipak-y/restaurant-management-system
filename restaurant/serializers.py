@@ -7,9 +7,18 @@ class RestaurantSerializer(serializers.ModelSerializer):
         model = Restaurant
         fields = "__all__"
 
-class OperatingHoursSerializer(serializers.ModelSerializer):  
-    day_display  = serializers. CharField(source="get_day_display", read_only=True)
+
+class OperatingHoursSerializer(serializers.ModelSerializer):
+    day_name = serializers.CharField(source="get_day_display", read_only=True)
+
     class Meta:
         model = OperatingHours
         fields = "__all__"
-              
+
+
+class RestaurantSettingsSerializer(serializers.ModelSerializer):
+    restaurant_name = serializers.CharField(source="restaurant.name", read_only=True)
+
+    class Meta:
+        model = RestaurantSettings
+        fields = "__all__"
