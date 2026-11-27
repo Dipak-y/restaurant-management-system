@@ -17,11 +17,8 @@ class Order(models.Model):
         ("CANCELLED", "Cancelled"),
     ]
 
-    order_number = models.UUIDField(
-        default=uuid.uuid4,
-        unique=True,
-        editable=False
-    )
+    order_number = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
+    idempotency_key = models.UUIDField(unique=True, null=True, blank=True)
 
     table = models.ForeignKey(DinningTable, on_delete=models.PROTECT, related_name="orders")
 

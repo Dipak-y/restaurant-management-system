@@ -1,8 +1,11 @@
 
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.db import transaction
+
 from .models import StaffProfile
+
 
 class StaffRegistrationSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source="user.username")
@@ -52,3 +55,23 @@ class StaffRegistrationSerializer(serializers.ModelSerializer):
         )
 
         return staff_profile
+
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+
+    def validate(self, attrs):
+        data = super().validate(attrs)
+
+        user = self.user
+
+        if user.is_superuser:
+            data["role"] = "ADMIN"
+        else:
+            profile = StaffProfile.objects.filter(
+                user=user,
+                is_active=True
+            ).first()
+
+            data["role"] = profile.role if profile else None
+
+        return data

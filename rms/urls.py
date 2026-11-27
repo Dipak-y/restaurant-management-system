@@ -23,8 +23,10 @@ from django.urls import include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("accounts.urls")),
+    path("orders/", include("orders.urls")),
     path("menu/", include("menu.urls")),
     path("table/", include("table.urls")),
+    path("kitchen/", include("kitchen.urls")),
     path("restaurant/", include("restaurant.urls")),
     path("health/", health_check),
 ]

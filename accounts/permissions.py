@@ -41,3 +41,6 @@ class IsKitchen(RolePermission):
 
 class IsAdminOrManager(RolePermission):
     allowed_roles = ["MANAGER"]
+
+class IsManagerOrWaiter(RolePermission):
+    allowed_roles = ["MANAGER", "WAITER"]

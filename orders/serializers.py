@@ -55,8 +55,19 @@ class CreateOrderItemSerializer(serializers.Serializer):
 
 
 class CreateOrderSerializer(serializers.Serializer):
+    idempotency_key = serializers.UUIDField()
     table_token = serializers.UUIDField()
     customer_name = serializers.CharField(required=False, allow_blank=True)
     customer_phone = serializers.CharField(required=False, allow_blank=True)
     notes = serializers.CharField(required=False, allow_blank=True)
     items = CreateOrderItemSerializer(many=True, allow_empty=False)
+
+    def validate_items(self, value):
+        menu_item_ids = [item["menu_item_id"] for item in value]
+
+        if len(menu_item_ids) != len(set(menu_item_ids)):
+            raise serializers.ValidationError(
+                "The same menu item cannot be added twice."
+            )
+
+        return value
